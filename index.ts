@@ -1,13 +1,11 @@
 import express from "express";
-import { userRouter } from "./routes";
+import { userRouter } from "./routes/index";
 import dotenv from "dotenv";
 
 const app = express();
-const port = 3000;
-
 dotenv.config();
 
-console.log(process.env.MY_NAME);
+const port = process.env.PORT || 3000;
 
 app.set("trust proxy", true);
 
