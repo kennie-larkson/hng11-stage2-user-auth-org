@@ -10,7 +10,8 @@ const app = (0, express_1.default)();
 dotenv_1.default.config();
 const port = process.env.PORT || 7000;
 app.set("trust proxy", true);
-app.use("/api", index_1.userRouter);
+app.use("/api", [index_1.userRouter]);
+app.use("/", index_1.indexRouter);
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
