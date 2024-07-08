@@ -18,7 +18,7 @@ const User_1 = require("../entities/User");
 const jwt_middleware_1 = require("../utils/jwt_middleware");
 const organizationRouter = (0, express_1.Router)();
 exports.organizationRouter = organizationRouter;
-organizationRouter.post("/organizations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+organizationRouter.post("/organisations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { description } = req.body;
     const userId = req.user.userId;
     try {
@@ -48,7 +48,7 @@ organizationRouter.post("/organizations", jwt_middleware_1.authenticateJWT, (req
         res.status(500).json({ message: "Server error", error });
     }
 }));
-organizationRouter.get("/organizations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+organizationRouter.get("/organisations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user.userId;
     try {
         const organizationRepository = data_source_1.AppDataSource.getRepository(Organization_1.Organization);
@@ -64,7 +64,7 @@ organizationRouter.get("/organizations", jwt_middleware_1.authenticateJWT, (req,
     }
 }));
 // New endpoint to get a single organization
-organizationRouter.get("/organizations/:orgId", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+organizationRouter.get("/organisations/:orgId", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { orgId } = req.params;
     const userId = req.user.userId;
     try {
@@ -94,7 +94,7 @@ organizationRouter.get("/organizations/:orgId", jwt_middleware_1.authenticateJWT
     }
 }));
 // New endpoint to create an organization
-organizationRouter.post("/organizations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+organizationRouter.post("/organisations", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, description } = req.body;
     const userId = req.user.userId;
     try {
@@ -143,7 +143,7 @@ organizationRouter.post("/organizations", jwt_middleware_1.authenticateJWT, (req
     }
 }));
 // New endpoint to add a user to an organization
-organizationRouter.post("/organizations/:orgId/users", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+organizationRouter.post("/organisations/:orgId/users", jwt_middleware_1.authenticateJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { orgId } = req.params;
     const { userId } = req.body;
     const currentUserId = req.user.userId;

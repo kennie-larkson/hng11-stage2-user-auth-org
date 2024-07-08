@@ -8,7 +8,7 @@ import { authenticateJWT } from "../utils/jwt_middleware";
 const organizationRouter = Router();
 
 organizationRouter.post(
-  "/organizations",
+  "/organisations",
   authenticateJWT,
   async (req: Request, res: Response) => {
     const { description } = req.body;
@@ -48,7 +48,7 @@ organizationRouter.post(
 );
 
 organizationRouter.get(
-  "/organizations",
+  "/organisations",
   authenticateJWT,
   async (req: Request, res: Response) => {
     const userId = (req as any).user.userId;
@@ -70,7 +70,7 @@ organizationRouter.get(
 
 // New endpoint to get a single organization
 organizationRouter.get(
-  "/organizations/:orgId",
+  "/organisations/:orgId",
   authenticateJWT,
   async (req: Request, res: Response) => {
     const { orgId } = req.params;
@@ -108,7 +108,7 @@ organizationRouter.get(
 
 // New endpoint to create an organization
 organizationRouter.post(
-  "/organizations",
+  "/organisations",
   authenticateJWT,
   async (req: Request, res: Response) => {
     const { name, description } = req.body;
@@ -168,7 +168,7 @@ organizationRouter.post(
 
 // New endpoint to add a user to an organization
 organizationRouter.post(
-  "/organizations/:orgId/users",
+  "/organisations/:orgId/users",
   authenticateJWT,
   async (req: Request, res: Response) => {
     const { orgId } = req.params;
