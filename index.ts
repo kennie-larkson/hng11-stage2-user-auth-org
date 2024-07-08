@@ -1,5 +1,10 @@
 import express from "express";
-import { userRouter, indexRouter, organizationRouter } from "./routes/index";
+import {
+  userRouter,
+  indexRouter,
+  organizationRouter,
+  authRouter,
+} from "./routes/index";
 import { AppDataSource } from "./data-source";
 import dotenv from "dotenv";
 
@@ -12,7 +17,7 @@ const port = process.env.PORT || 7000;
 app.set("trust proxy", true);
 
 app.use("/api", [organizationRouter, userRouter]);
-app.use("/auth", userRouter);
+app.use("/auth", authRouter);
 app.use("/", indexRouter);
 
 AppDataSource.initialize()

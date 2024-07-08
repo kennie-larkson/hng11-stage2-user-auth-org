@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userRouter = void 0;
+exports.authRouter = exports.userRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const class_validator_1 = require("class-validator");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -23,7 +23,9 @@ const jwt_middleware_1 = require("../utils/jwt_middleware");
 const generateToken_1 = require("../utils/generateToken");
 const userRouter = express_1.default.Router();
 exports.userRouter = userRouter;
-userRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const authRouter = express_1.default.Router();
+exports.authRouter = authRouter;
+authRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password, phone } = req.body;
     try {
         const userRepository = data_source_1.AppDataSource.getRepository(User_1.User);
@@ -105,7 +107,7 @@ userRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
 }));
-userRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+authRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
         const userRepository = data_source_1.AppDataSource.getRepository(User_1.User);

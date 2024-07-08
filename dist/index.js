@@ -13,7 +13,7 @@ app.use(express_1.default.json());
 const port = process.env.PORT || 7000;
 app.set("trust proxy", true);
 app.use("/api", [index_1.organizationRouter, index_1.userRouter]);
-app.use("/auth", index_1.userRouter);
+app.use("/auth", index_1.authRouter);
 app.use("/", index_1.indexRouter);
 data_source_1.AppDataSource.initialize()
     .then(() => {

@@ -10,8 +10,9 @@ import { generateToken, verifyToken } from "../utils/generateToken";
 import { IUser } from "../entities/User.interface";
 
 const userRouter = express.Router();
+const authRouter = express.Router();
 
-userRouter.post("/register", async (req: Request, res: Response) => {
+authRouter.post("/register", async (req: Request, res: Response) => {
   const { firstName, lastName, email, password, phone } = req.body;
 
   try {
@@ -104,7 +105,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-userRouter.post("/login", async (req: Request, res: Response) => {
+authRouter.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
@@ -199,4 +200,4 @@ userRouter.get(
   }
 );
 
-export { userRouter };
+export { userRouter, authRouter };
