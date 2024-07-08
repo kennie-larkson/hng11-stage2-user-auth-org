@@ -3,7 +3,7 @@ import { userRouter, indexRouter, organizationRouter } from "./routes/index";
 import { AppDataSource } from "./data-source";
 import dotenv from "dotenv";
 
-const app = express();
+export const app = express();
 dotenv.config();
 app.use(express.json());
 

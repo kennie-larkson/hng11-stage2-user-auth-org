@@ -6,17 +6,10 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities/User";
 import { Organization } from "../entities/Organization";
 import { authenticateJWT } from "../utils/jwt_middleware";
+import { generateToken, verifyToken } from "../utils/generateToken";
+import { IUser } from "../entities/User.interface";
 
 const userRouter = express.Router();
-
-// userRouter.get("/user", async (req: Request, res: Response) => {
-//   try {
-//     res.json({ message: "I am the user" });
-//   } catch (error) {
-//     console.log(error);
-//     res.send("Sorry, we are unable to complete this request");
-//   }
-// });
 
 userRouter.post("/register", async (req: Request, res: Response) => {
   const { firstName, lastName, email, password, phone } = req.body;
@@ -48,9 +41,6 @@ userRouter.post("/register", async (req: Request, res: Response) => {
       });
     }
 
-    // save new User
-    await userRepository.save(user);
-
     // Create default organization
     const organization = new Organization();
     organization.name = `${user.firstName}'s Organization`;
@@ -69,11 +59,9 @@ userRouter.post("/register", async (req: Request, res: Response) => {
     await organizationRepository.save(organization);
 
     // Generate JWT token
-    const accessToken = jwt.sign(
-      { userId: user.userId },
-      process.env.JWT_SECRET!,
-      { expiresIn: "1h" }
-    );
+    const accessToken = generateToken(user);
+    // save new User
+    await userRepository.save(user);
 
     // Return success response
     res.status(201).json({
@@ -108,7 +96,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
     //res.status(500).json({ message: "Server error", error });
     console.error("Registration Error", error);
 
-    res.status(400).json({
+    return res.status(400).json({
       status: "Bad request",
       message: "Registration unsuccessful",
       statusCode: 400,
@@ -133,11 +121,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
     }
 
     // Generate JWT token
-    const accessToken = jwt.sign(
-      { userId: user.userId },
-      process.env.JWT_SECRET!,
-      { expiresIn: "1h" }
-    );
+    const accessToken = generateToken(user);
 
     // Return success response
     res.status(200).json({

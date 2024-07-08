@@ -4,20 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticateJWT = void 0;
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const generateToken_1 = require("./generateToken");
 dotenv_1.default.config();
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
-        jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, user) => {
-            if (err) {
-                return res.sendStatus(403);
-            }
-            req.user = user;
-            next();
-        });
+        (0, generateToken_1.verifyToken)(req, res, next, token);
+        // jwt.verify(token, process.env.JWT_SECRET!, (err, user) => {
+        //   if (err) {
+        //     return res.sendStatus(403);
+        //   }
+        //   (req as any).user = user;
+        //   next();
+        // });
     }
     else {
         res.sendStatus(401);
