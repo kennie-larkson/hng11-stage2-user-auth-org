@@ -5,7 +5,7 @@ import { generateToken, verifyToken } from "../utils/generateToken";
 import { User } from "../entities/User";
 import { IUser } from "../entities/User.interface";
 import request from "supertest";
-import { app } from "../index"; // Adjust the path according to your app entry point
+import app from "../index"; // Adjust the path according to your app entry point
 import { AppDataSource } from "../data-source";
 import { Organization } from "../entities/Organization";
 import bcrypt from "bcryptjs";

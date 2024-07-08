@@ -16,7 +16,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const generateToken_1 = require("../utils/generateToken");
 const User_1 = require("../entities/User");
 const supertest_1 = __importDefault(require("supertest"));
-const index_1 = require("../index"); // Adjust the path according to your app entry point
+const index_1 = __importDefault(require("../index")); // Adjust the path according to your app entry point
 const data_source_1 = require("../data-source");
 const Organization_1 = require("../entities/Organization");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -168,7 +168,7 @@ describe("POST /auth/register and /auth/login", () => {
         yield userRepository.createQueryBuilder().delete().execute();
     }));
     it("should register a user successfully", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/register").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/register").send({
             firstName: "John",
             lastName: "Doe",
             email: "john.doe@example.com",
@@ -191,7 +191,7 @@ describe("POST /auth/register and /auth/login", () => {
         expect(organization).toBeDefined();
     }));
     it("should return validation errors", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/register").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/register").send({
             firstName: "",
             lastName: "",
             email: "invalid-email",
@@ -228,7 +228,7 @@ describe("POST /auth/register and /auth/login", () => {
         existingUser.password = yield bcryptjs_1.default.hash("password123", 10);
         existingUser.phone = "123-456-7890";
         yield userRepository.save(existingUser);
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/register").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/register").send({
             firstName: "Jane",
             lastName: "Doe",
             email: "jane.doe@example.com",
@@ -248,7 +248,7 @@ describe("POST /auth/register and /auth/login", () => {
         existingUser.password = "password123";
         existingUser.phone = "123-456-7890";
         yield userRepository.save(existingUser);
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/login").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/login").send({
             email: "john.doe@example.com",
             password: "password123",
         });
@@ -264,7 +264,7 @@ describe("POST /auth/register and /auth/login", () => {
         });
     }));
     it("should return a 401 error if the email does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/login").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/login").send({
             email: "non.existent@example.com",
             password: "password123",
         });
@@ -281,7 +281,7 @@ describe("POST /auth/register and /auth/login", () => {
         existingUser.password = yield bcryptjs_1.default.hash("password123", 10);
         existingUser.phone = "123-456-7890";
         yield userRepository.save(existingUser);
-        const response = yield (0, supertest_1.default)(index_1.app).post("/auth/login").send({
+        const response = yield (0, supertest_1.default)(index_1.default).post("/auth/login").send({
             email: "john.doe@example.com",
             password: "wrongpassword",
         });

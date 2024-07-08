@@ -3,7 +3,7 @@ import { userRouter, indexRouter, organizationRouter } from "./routes/index";
 import { AppDataSource } from "./data-source";
 import dotenv from "dotenv";
 
-export const app = express();
+const app = express();
 dotenv.config();
 app.use(express.json());
 
@@ -24,3 +24,5 @@ AppDataSource.initialize()
   .catch((error) => {
     console.error("Error during Data Source initialization:", error);
   });
+
+export default app;
